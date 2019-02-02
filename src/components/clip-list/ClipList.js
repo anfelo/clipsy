@@ -4,7 +4,11 @@ import React from 'react';
 import Clip from './Clip';
 
 const ClipList = props => {
-  const clips = props.clipList.map(clip => <Clip key={clip.id} clip={clip} />);
+  const clips = props.clipList.map(clip => {
+    return (
+      <li key={clip.id} ><Clip clip={clip} onPlayClip={props.onPlayClip} /></li>
+    );
+  });
   return (
     <section>
       <ul className="clip-list">

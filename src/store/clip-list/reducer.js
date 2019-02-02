@@ -2,6 +2,7 @@ import * as uuid from 'uuid';
 import * as ClipListActionTypes from './actionTypes';
 
 const initialState = {
+  isAddingClip: false,
   data: [
     {
       id: 1,
@@ -50,6 +51,7 @@ export default function ClipList(state = initialState, action) {
   switch (action.type) {
     case ClipListActionTypes.ADD_CLIP:
       return {
+        isAddingClip: false,
         data: [
           ...state.data,
           {
@@ -61,11 +63,13 @@ export default function ClipList(state = initialState, action) {
 
     case ClipListActionTypes.REMOVE_CLIP:
       return {
+        isAddingClip: false,
         data: state.data.filter(clip => clip.id !== action.payload)
       }
 
     case ClipListActionTypes.EDIT_CLIP:
       return {
+        isAddingClip: false,
         data: state.data.map(clip => {
           if (clip.id === action.payload.id) {
             return {
@@ -79,6 +83,7 @@ export default function ClipList(state = initialState, action) {
 
     case ClipListActionTypes.PLAY_CLIP:
       return {
+        isAddingClip: false,
         data: state.data.map(clip => {
           if (clip.id === action.payload) {
             return {
@@ -91,6 +96,18 @@ export default function ClipList(state = initialState, action) {
             isPlaying: false
           };
         })
+      }
+
+    case ClipListActionTypes.ENABLE_NEW_CLIP_FORM:
+      return {
+        ...state,
+        isAddingClip: true
+      }
+
+    case ClipListActionTypes.DISABLE_NEW_CLIP_FORM:
+      return {
+        ...state,
+        isAddingClip: false
       }
 
     default:

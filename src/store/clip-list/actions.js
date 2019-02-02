@@ -19,3 +19,11 @@ export const playClip = clipId => ({
   type: ClipListActionTypes.PLAY_CLIP,
   payload: clipId
 });
+
+export const enableNewClipForm = () => ({
+  type: ClipListActionTypes.ENABLE_NEW_CLIP_FORM
+});
+
+export const disableNewClipForm = () => ({
+  type: ClipListActionTypes.DISABLE_NEW_CLIP_FORM
+});
