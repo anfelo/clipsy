@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
 
+// Components
+import ClipPlayer from '../components/clip-player/ClipPlayer';
+
 class App extends Component {
+  state = {
+    currentClip: {
+      source: 'http://grochtdreis.de/fuer-jsfiddle/video/sintel_trailer-480.mp4',
+      type: 'video/mp4'
+    }
+  };
+
   render() {
     return (
       <div>
-        <h1>Main App container</h1>
+        <ClipPlayer clip={this.state.currentClip} />
       </div>
     );
   }
