@@ -1,0 +1,14 @@
+.player-container {
+  width: 100%;
+  margin: 0;
+
+  video {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .player-container {
+    width: 90%;
+  }
+}

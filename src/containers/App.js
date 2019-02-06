@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as ClipListActionCreators from '../store/clip-list/actions';
 
 // Containers
-import ClipForm from './clip-form/ClipForm';
+import ClipFormContainer from './clip-form/ClipFormContainer';
 
 // Components
 import ClipPlayer from '../components/clip-player/ClipPlayer';
@@ -29,21 +29,23 @@ class App extends Component {
     const { clipList, actions, isAddingClip } = this.props;
     this.replayVideo();
     return (
-      <div>
+      <div className="app-container">
         <ClipPlayer
           clip={clipList.find(clip => clip.isPlaying)}
           videoRef={this.videoRef} />
-        {
-          !isAddingClip
-            ? <NewClip onNewClipClick={actions.enableNewClipForm} />
-            : <ClipForm
-              onAddNewClip={actions.addClip}
-              onCancelNewClip={actions.disableNewClipForm} />
-        }
-        <ClipList
-          clipList={clipList}
-          onPlayClip={actions.playClip}
-          isAddingClip={isAddingClip} />
+        <div className="clip-editor-wrapper">
+          {
+            !isAddingClip
+              ? <NewClip onNewClipClick={actions.enableNewClipForm} />
+              : <ClipFormContainer
+                onAddNewClip={actions.addClip}
+                onCancelNewClip={actions.disableNewClipForm} />
+          }
+          <ClipList
+            clipList={clipList}
+            onPlayClip={actions.playClip}
+            isAddingClip={isAddingClip} />
+        </div>
       </div>
     );
   }

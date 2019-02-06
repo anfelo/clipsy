@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
-class ClipForm extends Component {
+// Components
+import ClipForm from '../../components/clip-form/ClipForm';
+
+class ClipFormContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,24 +44,12 @@ class ClipForm extends Component {
 
   render() {
     return (
-      <div className="">
-        <form onSubmit={e => this.handleAddNewClip(e)}>
-          <input type="text" name="name" value={this.state.name} onChange={this.handleInputChange} />
-          <input type="text" name="start" value={this.state.start} onChange={this.handleInputChange} />
-          <input type="text" name="end" value={this.state.end} onChange={this.handleInputChange} />
-          <button
-            type="submit">
-            Add Clip
-          </button>
-          <button
-            type="button"
-            onClick={() => this.props.onCancelNewClip()}>
-            Cancel
-          </button>
-        </form>
-      </div>
+      <ClipForm
+        form={this.state}
+        onInputChange={this.handleInputChange}
+        onCancelNewClip={this.props.onCancelNewClip} />
     );
   }
 }
 
-export default ClipForm;
+export default ClipFormContainer;
