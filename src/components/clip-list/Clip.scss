@@ -1,0 +1,9 @@
+.clip {
+  width: 100%;
+  min-height: 200px;
+
+  &.new-clip {
+    font-size: 4rem;
+    border: 3px dashed;
+  }
+}
