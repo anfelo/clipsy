@@ -7,7 +7,7 @@ const ClipPlayer = props => {
   return (
     <section>
       <div className="player-container">
-        <video id="clip-player" controls autoPlay ref={props.videoRef}>
+        <video id="clip-player" controls ref={props.videoRef}>
           <source
             src={clipSource}
             type={props.clip.type} />

@@ -15,21 +15,15 @@ class ClipFormContainer extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  isValidForm() {
-    return true;
-  }
-
   handleAddNewClip(event) {
     event.preventDefault();
-    if (this.isValidForm()) {
-      this.props.onAddNewClip({
-        ...this.state,
-        source: 'http://grochtdreis.de/fuer-jsfiddle/video/sintel_trailer-480.mp4',
-        type: 'video/mp4',
-        isMain: false,
-        isPlaying: false
-      });
-    }
+    this.props.onAddNewClip({
+      ...this.state,
+      source: 'http://grochtdreis.de/fuer-jsfiddle/video/sintel_trailer-480.mp4',
+      type: 'video/mp4',
+      isMain: false,
+      isPlaying: false
+    });
   }
 
   handleInputChange(event) {
@@ -47,7 +41,8 @@ class ClipFormContainer extends Component {
       <ClipForm
         form={this.state}
         onInputChange={this.handleInputChange}
-        onCancelNewClip={this.props.onCancelNewClip} />
+        onCancelNewClip={this.props.onCancelNewClip}
+        onAddNewClip={this.handleAddNewClip} />
     );
   }
 }

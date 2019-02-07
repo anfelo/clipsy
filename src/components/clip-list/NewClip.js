@@ -1,12 +1,10 @@
 import React from 'react';
 
 const NewClip = props => (
-  <div className="clips-container">
-    <button
-      type="button"
-      className="clip new-clip"
-      onClick={() => props.onNewClipClick()}>+</button>
-  </div>
+  <button
+    type="button"
+    className="clip new-clip"
+    onClick={() => props.onNewClipClick()}>+</button>
 );
 
 export default NewClip;

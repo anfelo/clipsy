@@ -34,17 +34,18 @@ class App extends Component {
           clip={clipList.find(clip => clip.isPlaying)}
           videoRef={this.videoRef} />
         <div className="clip-editor-wrapper">
-          {
-            !isAddingClip
-              ? <NewClip onNewClipClick={actions.enableNewClipForm} />
-              : <ClipFormContainer
-                onAddNewClip={actions.addClip}
-                onCancelNewClip={actions.disableNewClipForm} />
-          }
           <ClipList
             clipList={clipList}
             onPlayClip={actions.playClip}
-            isAddingClip={isAddingClip} />
+            isAddingClip={isAddingClip}>
+            {
+              !isAddingClip
+                ? <NewClip onNewClipClick={actions.enableNewClipForm} />
+                : <ClipFormContainer
+                  onAddNewClip={actions.addClip}
+                  onCancelNewClip={actions.disableNewClipForm} />
+            }
+          </ClipList>
         </div>
       </div>
     );

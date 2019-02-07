@@ -1,6 +1,6 @@
 .clips-container {
   width: 90%;
-  margin: auto;
+  margin: 20px auto;
 }
 
 .clip-list {
@@ -9,6 +9,7 @@
   justify-content: space-around;
 
   li {
-    min-width: 45%;
+    width: 48%;
+    margin-bottom: 10px;
   }
 }

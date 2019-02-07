@@ -14,6 +14,7 @@ const ClipList = props => {
   return (
     <section>
       <ul className="clip-list clips-container">
+        <li key="0">{props.children}</li>
         {clips}
       </ul>
     </section>

@@ -1,20 +1,36 @@
 import React from 'react';
 
+import './ClipForm.scss';
+
 const ClipForm = props => (
-  <div className="">
+  <div className="clip clip-form">
     <form onSubmit={e => this.handleAddNewClip(e)}>
-      <input type="text" name="name" value={props.name} onChange={props.onInputChange} />
-      <input type="text" name="start" value={props.start} onChange={props.onInputChange} />
-      <input type="text" name="end" value={props.end} onChange={props.onInputChange} />
-      <button
-        type="submit">
-        Add Clip
-      </button>
-      <button
-        type="button"
-        onClick={() => props.onCancelNewClip()}>
-        Cancel
-      </button>
+      <label htmlFor="name">
+        Name:
+        <input type="text" name="name" value={props.name} onChange={props.onInputChange} />
+      </label>
+      <label htmlFor="start">
+        Start Time:
+        <input type="text" name="start" value={props.start} onChange={props.onInputChange} />
+      </label>
+      <label htmlFor="end">
+        End Time:
+        <input type="text" name="end" value={props.end} onChange={props.onInputChange} />
+      </label>
+      <div className="form-actions">
+        <button
+          className="button button-primary"
+          type="submit"
+          onClick={props.onAddNewClip}>
+          Add Clip
+        </button>
+        <button
+          className="button button-warning"
+          type="button"
+          onClick={() => props.onCancelNewClip()}>
+          Cancel
+        </button>
+      </div>
     </form>
   </div>
 );

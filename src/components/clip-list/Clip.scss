@@ -1,9 +1,33 @@
 .clip {
   width: 100%;
-  min-height: 200px;
+  height: 226px;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   &.new-clip {
+    align-items: center;
+    line-height: 226px;
     font-size: 4rem;
-    border: 3px dashed;
+    border: none;
+    background-color: #b3cdd1;
+    background-image: linear-gradient(315deg, #b3cdd1 0%, #9fa4c4 74%);
+    color: rgba(0, 0, 0, 0.5);
+
+    &:hover {
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &.clip-primary {
+    background-color: #f8ceec;
+    background-image: linear-gradient(315deg, #f8ceec 0%, #a88beb 74%);
+  }
+
+  .clip-actions {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-around;
   }
 }
