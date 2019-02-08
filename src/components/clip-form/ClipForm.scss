@@ -15,7 +15,8 @@
       }
     }
 
-    input[type="text"] {
+    input[type="text"],
+    input[type="number"] {
       width: 98%;
       min-height: 30px;
       padding: 0 5px;

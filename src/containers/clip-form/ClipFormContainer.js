@@ -7,18 +7,24 @@ class ClipFormContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      start: '',
-      end: ''
+      clip: props.clip !== undefined
+        ? props.clip
+        : {
+          id: '',
+          name: '',
+          start: '',
+          end: ''
+        }
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleAddNewClip = this.handleAddNewClip.bind(this);
   }
 
   handleAddNewClip(event) {
     event.preventDefault();
     this.props.onAddNewClip({
-      ...this.state,
+      ...this.state.clip,
       source: 'http://grochtdreis.de/fuer-jsfiddle/video/sintel_trailer-480.mp4',
       type: 'video/mp4',
       isMain: false,
@@ -32,14 +38,17 @@ class ClipFormContainer extends Component {
     const name = target.name;
 
     this.setState({
-      [name]: value
+      clip: {
+        ...this.state.clip,
+        [name]: value
+      }
     });
   }
 
   render() {
     return (
       <ClipForm
-        form={this.state}
+        form={this.state.clip}
         onInputChange={this.handleInputChange}
         onCancelNewClip={this.props.onCancelNewClip}
         onAddNewClip={this.handleAddNewClip} />

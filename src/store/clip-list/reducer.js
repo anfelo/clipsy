@@ -12,7 +12,8 @@ const initialState = {
       start: '',
       end: '',
       isMain: true,
-      isPlaying: true
+      isPlaying: true,
+      isEditing: false,
     },
     {
       id: 2,
@@ -22,7 +23,8 @@ const initialState = {
       start: '10',
       end: '20',
       isMain: false,
-      isPlaying: false
+      isPlaying: false,
+      isEditing: false,
     },
     {
       id: 3,
@@ -32,7 +34,8 @@ const initialState = {
       start: '20',
       end: '30',
       isMain: false,
-      isPlaying: false
+      isPlaying: false,
+      isEditing: false,
     },
     {
       id: 4,
@@ -42,7 +45,8 @@ const initialState = {
       start: '30',
       end: '',
       isMain: false,
-      isPlaying: false
+      isPlaying: false,
+      isEditing: false,
     },
   ]
 };
@@ -50,21 +54,41 @@ const initialState = {
 export default function ClipList(state = initialState, action) {
   switch (action.type) {
     case ClipListActionTypes.ADD_CLIP:
-      return {
-        isAddingClip: false,
-        data: [
-          ...state.data,
-          {
-            id: uuid(),
-            ...action.payload
-          }
-        ],
+      if (
+        action.payload.name.trim() !== ''
+        && action.payload.start.trim() !== ''
+        && action.payload.end.trim() !== ''
+      ) {
+        return {
+          isAddingClip: false,
+          data: [
+            ...state.data,
+            {
+              ...action.payload,
+              id: uuid(),
+            }
+          ],
+        }
+      } else {
+        return state;
       }
 
     case ClipListActionTypes.REMOVE_CLIP:
       return {
         isAddingClip: false,
-        data: state.data.filter(clip => clip.id !== action.payload)
+        data: [
+          ...state.data
+            .filter(clip => clip.id !== action.payload)
+            .map(clip => {
+              if (clip.isMain) {
+                return {
+                  ...clip,
+                  isPlaying: true
+                }
+              }
+              return clip;
+            }),
+        ]
       }
 
     case ClipListActionTypes.EDIT_CLIP:
@@ -72,9 +96,12 @@ export default function ClipList(state = initialState, action) {
         isAddingClip: false,
         data: state.data.map(clip => {
           if (clip.id === action.payload.id) {
+            console.log(clip);
             return {
               ...clip,
-              ...action.payload
+              ...action.payload,
+              isEditing: false,
+              isPlaying: true
             };
           }
           return clip;
@@ -101,13 +128,56 @@ export default function ClipList(state = initialState, action) {
     case ClipListActionTypes.ENABLE_NEW_CLIP_FORM:
       return {
         ...state,
-        isAddingClip: true
+        isAddingClip: true,
+        data: state.data.map(clip => {
+          return {
+            ...clip,
+            isEditing: false
+          };
+        })
       }
 
     case ClipListActionTypes.DISABLE_NEW_CLIP_FORM:
       return {
         ...state,
-        isAddingClip: false
+        isAddingClip: false,
+        data: state.data.map(clip => {
+          return {
+            ...clip,
+            isEditing: false
+          };
+        })
+      }
+
+    case ClipListActionTypes.ENABLE_EDIT_CLIP_FORM:
+      return {
+        isAddingClip: false,
+        data: state.data.map(clip => {
+          if (clip.id === action.payload) {
+            return {
+              ...clip,
+              isEditing: true
+            };
+          }
+          return {
+            ...clip,
+            isEditing: false
+          };
+        })
+      }
+
+    case ClipListActionTypes.DISABLE_EDIT_CLIP_FORM:
+      return {
+        isAddingClip: false,
+        data: state.data.map(clip => {
+          if (clip.id === action.payload) {
+            return {
+              ...clip,
+              isEditing: false
+            };
+          }
+          return clip;
+        })
       }
 
     default:

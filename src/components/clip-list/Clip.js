@@ -14,18 +14,26 @@ const Clip = props => (
         onClick={() => props.onPlayClip(props.clip.id)}>
         <span className="fas fa-play"></span>
       </button>
-      <button
-        type="button"
-        className="button button-info"
-        onClick={() => props.onPlayClip(props.clip.id)}>
-        <span className="fas fa-edit"></span>
-      </button>
-      <button
-        type="button"
-        className="button button-danger"
-        onClick={() => props.onPlayClip(props.clip.id)}>
-        <span className="fas fa-trash-alt"></span>
-      </button>
+      {
+        !props.clip.isMain
+          ? (
+            <>
+              <button
+                type="button"
+                className="button button-info"
+                onClick={() => props.onEnableEditClip(props.clip.id)}>
+                <span className="fas fa-edit"></span>
+              </button>
+              <button
+                type="button"
+                className="button button-danger"
+                onClick={() => props.onRemoveClip(props.clip.id)}>
+                <span className="fas fa-trash-alt"></span>
+              </button>
+            </>
+          )
+          : ''
+      }
     </div>
   </div>
 );
