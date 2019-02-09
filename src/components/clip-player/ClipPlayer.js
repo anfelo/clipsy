@@ -1,15 +1,18 @@
 import React from 'react';
 
-const ClipPlayer = props => (
-  <section>
-    <div className="container">
-      <video id="clip-player" controls autoPlay>
+import './ClipPlayer.scss';
+
+const ClipPlayer = props => {
+  const clipSource = `${props.clip.source}#t=${props.clip.start}${props.clip.end ? ',' : ''}${props.clip.end}`;
+  return (
+    <div className="player-container">
+      <video id={`clip-player-${props.clip.id}`} controls ref={props.videoRef}>
         <source
-          src={`${props.clip.source}#t=${props.clip.start},${props.clip.end}`}
+          src={clipSource}
           type={props.clip.type} />
       </video>
     </div>
-  </section>
-);
+  );
+};
 
 export default ClipPlayer;

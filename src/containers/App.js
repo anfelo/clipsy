@@ -1,17 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+// ActionCreators
+import * as ClipListActionCreators from '../store/clip-list/actions';
+
+// Containers
+import ClipFormContainer from './clip-form/ClipFormContainer';
+import ClipPlayerContainer from './clip-player/ClipPlayerContainer';
 
 // Components
-import ClipPlayer from '../components/clip-player/ClipPlayer';
 import ClipList from '../components/clip-list/ClipList';
+import NewClip from '../components/clip-list/NewClip';
 
 class App extends Component {
   render() {
-    const { clipList } = this.props;
+    const { clipList, actions, isAddingClip } = this.props;
     return (
-      <div>
-        <ClipPlayer clip={clipList.find(clip => clip.isPlaying)} />
-        <ClipList clipList={clipList} />
+      <div className="app-container">
+        <ClipPlayerContainer clipList={clipList} />
+        <div className="clip-editor-wrapper">
+          <ClipList
+            clipList={clipList}
+            onPlayClip={actions.playClip}
+            onEnableEditClip={actions.enableEditClip}
+            onRemoveClip={actions.removeClip}
+            isAddingClip={isAddingClip}
+            onEditClip={actions.editClip}
+            onDisableEditForm={actions.disableEditClip}>
+            {
+              !isAddingClip
+                ? <NewClip onNewClipClick={actions.enableNewClipForm} />
+                : <ClipFormContainer
+                  onAddNewClip={actions.addClip}
+                  onCancelNewClip={actions.disableNewClipForm} />
+            }
+          </ClipList>
+        </div>
       </div>
     );
   }
@@ -19,8 +44,17 @@ class App extends Component {
 
 const mapStateToProps = state => (
   {
-    clipList: state.clipList.data
+    clipList: state.clipList.data,
+    isAddingClip: state.clipList.isAddingClip
   }
 );
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => (
+  {
+    actions: bindActionCreators(
+      ClipListActionCreators, dispatch
+    )
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

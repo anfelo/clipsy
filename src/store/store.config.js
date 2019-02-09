@@ -20,7 +20,9 @@ export default function configureStore() {
 
   store.subscribe(throttle(() => {
     saveState({
-      clipList: store.getState().clipList
+      clipList: {
+        data: store.getState().clipList.data
+      }
     });
   }, 1000));
 

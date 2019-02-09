@@ -1,0 +1,17 @@
+.clips-container {
+  width: 90%;
+  margin: 20px auto;
+}
+
+.clip-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  li {
+    width: 48%;
+    min-width: 150px;
+    margin-right: 2%;
+    margin-bottom: 10px;
+  }
+}
